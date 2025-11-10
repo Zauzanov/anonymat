@@ -9,9 +9,9 @@ python proxy.py --help
 ```
 ## 2. Run:
 ```bash
-sudo python proxy.py 192.168.1.203 21 ftp.sun.ac.za 21 True
+sudo python proxy.py 192.168.1.203 21 192.168.1.204 21 True
 ```
-## 3. Terminal 2:
+## 3. From Metasploitable2 Terminal(it has FTP-client):
 ```bash
 ftp 192.168.1.203
 ```
