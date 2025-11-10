@@ -1,1 +1,17 @@
-TCP proxy 
+<p align="center">
+  <h1 align="center"> TCP proxy </h1>
+</p>
+
+## 🚀 Quick Start
+## 1. Download 'proxy.py' file and run it like this to open the helper:
+```bash
+python proxy.py --help  
+```
+## 2. Run:
+```bash
+sudo python proxy.py 192.168.1.203 21 ftp.sun.ac.za 21 True
+```
+## Terminal 2:
+```bash
+ftp 192.168.1.203
+```
