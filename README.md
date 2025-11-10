@@ -11,7 +11,7 @@ python proxy.py --help
 ```bash
 sudo python proxy.py 192.168.1.203 21 ftp.sun.ac.za 21 True
 ```
-## Terminal 2:
+## 3. Terminal 2:
 ```bash
 ftp 192.168.1.203
 ```
