@@ -11,7 +11,7 @@ python proxy.py --help
 ```bash
 sudo python proxy.py 192.168.1.203 21 192.168.1.204 21 True
 ```
-## 3. From Metasploitable2 Terminal(it has FTP-client. Creds: user:user):
+## 3. From Metasploitable2 Terminal(it has FTP-client and server as well. Creds: user:user):
 ```bash
 ftp 192.168.1.203
 ```
