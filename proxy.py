@@ -104,7 +104,7 @@ def server_loop(local_host, local_port, remote_host, remote_port, receive_first)
 
         sys.exit(0)
     
-    print("[*] Linsteing %s:%d"  % (local_host, local_port))
+    print("[*] Listening %s:%d"  % (local_host, local_port))
     server.listen(5)
     while True:
         client_socket, addr = server.accept()
