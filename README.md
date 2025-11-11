@@ -11,7 +11,8 @@ python proxy.py --help
 ```bash
 sudo python proxy.py 192.168.1.203 21 192.168.1.204 21 True
 ```
-## 3. From Metasploitable2 Terminal(it has FTP-client):
+## 3. From Metasploitable2 Terminal(it has FTP-client. Creds: user:user):
 ```bash
 ftp 192.168.1.203
 ```
+Now you can see that it works as a traffic forwarder that simply passes the FTP client's connection attempt to a real FTP server running on the [remotehost]:[remoteport].
