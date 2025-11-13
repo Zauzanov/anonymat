@@ -111,7 +111,7 @@ def server_loop(local_host, local_port, remote_host, remote_port, receive_first)
         # info output about a local connection
         line = "> Received incoming connection from %s:%d" % (addr[0], addr[1])
         print(line)
-        # create a flow to interconnect with a remote server
+        # create a thread to interconnect with a remote server
         proxy_thread = threading.Thread(
             target = proxy_handler,
             args = (client_socket, remote_host, remote_port, receive_first)
