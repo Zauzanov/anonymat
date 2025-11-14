@@ -2,9 +2,11 @@ import sys
 import socket
 import threading
 
+# Translation table used by hexdump for printable/non-printable chars
 HEX_FILTER = ''.join(
     [(len(repr(chr(i))) == 3) and chr(i) or '.' for i in range(256)])
 
+# Displays raw data in hex format
 def hexdump(src, length=16, show=True):
     if isinstance(src, bytes):
         src = src.decode()
@@ -31,6 +33,7 @@ hexdump(test_data_ascii)
 print("\n" + "="*50 + "\n")
 '''
 
+# to receive data sent on a socket connection 
 def receive_from(connection):
     buffer = b""
     connection.settimeout(5)
@@ -44,14 +47,17 @@ def receive_from(connection):
         pass
     return buffer
 
+# for modifying client-to-server traffic(requests)
 def request_handler(buffer):
-    # modify the packet to: change its content; do fuzzing; debug auth issues. 
+    # modify the packet to: change its content; do fuzzing; debug auth issues 
     return buffer
 
+# For modifying server-to-client traffic(responses)
 def response_handler(buffer):
-    # modify the packet
+    # modify the packet to alter a server response etc
     return buffer
 
+# Traffic handling function
 def proxy_handler(client_socket, remote_host, remote_port, receive_first):
     remote_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     remote_socket.connect((remote_host, remote_port))
@@ -91,7 +97,7 @@ def proxy_handler(client_socket, remote_host, remote_port, receive_first):
             print("[*] No more data. Closing connections.")
             break 
 
-
+# Server listener
 def server_loop(local_host, local_port, remote_host, remote_port, receive_first):
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
