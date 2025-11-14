@@ -11,7 +11,7 @@ python proxy.py --help
 ```bash
 sudo python proxy.py 192.168.1.203 21 192.168.1.204 21 True
 ```
-## 3. From Metasploitable2 Terminal(it has FTP-client and server as well. Creds: user:user):
+## 3. From Metasploitable2(intentionally vulnerable Linux virtual machine) Terminal(it has FTP-client and server as well. Creds: user:user):
 ```bash
 ftp 192.168.1.203
 ```
@@ -39,4 +39,28 @@ OUTPUT:
 [==>] Sent to remote.
 
 ```
+
+## 5. IP Masking: how to check whether the script masks your IP, replacing it with the proxy's own IP address, or not:
+
+### 5.1 Run the proxy on your Kali machine(Proxy host): 
+```bash
+sudo python proxy.py 192.168.204.139 21 192.168.204.129 21 True
+```
+
+### 5.2 On Metasploitable2 machine - Client host (192.168.204.129): 
+```bash
+ftp 192.168.204.139 			# Proxy's IP address in my case
+```
+### 5.3 At the same time Metasploitable2's FTP server is your Destination server(Remote host) in this case;
+
+### 5.4 After the interaction, let's check the FTP server's logs on the Metasploitable2 machine:
+``` bash
+sudo tail /var/log/vsftpd.log
+sudo cat /var/log/vsftpd.log
+```
+
+If you see your Kali machine's IP address, you're good - it means the script effectively "masks" the original IP by replacing it. 
+
+
+
 
