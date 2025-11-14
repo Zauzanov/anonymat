@@ -59,6 +59,8 @@ sudo tail /var/log/vsftpd.log
 sudo cat /var/log/vsftpd.log
 ```
 
+![Logs](https://raw.githubusercontent.com/Zauzanov/anonymat/refs/heads/main/IP_masking.png)
+
 If you see your Kali machine's IP address, you're good - it means the script effectively "masks" the original IP by replacing it. 
 
 
