@@ -6,7 +6,7 @@ import threading
 HEX_FILTER = ''.join(
     [(len(repr(chr(i))) == 3) and chr(i) or '.' for i in range(256)])
 
-# Displays raw data in hex format
+# Displays raw data in hex format, allowing to monitor traffic passing through a proxy server in real time
 def hexdump(src, length=16, show=True):
     if isinstance(src, bytes):
         src = src.decode()
@@ -36,7 +36,7 @@ print("\n" + "="*50 + "\n")
 # to receive data sent on a socket connection 
 def receive_from(connection):
     buffer = b""
-    connection.settimeout(5)
+    connection.settimeout(10)
     try:
         while True:
             data = connection.recv(4096)
