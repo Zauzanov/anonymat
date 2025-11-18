@@ -87,9 +87,14 @@ def proxy_handler(client_socket, remote_host, remote_port, receive_first):
         if len(local_buffer):
             line = "[==>]Received %d bytes from localhost." % len(local_buffer)
             print(line)
-            hexdump(local_buffer)
+            # hexdump(local_buffer) - COMMENTED OUT for this branch!
 
             local_buffer = request_handler(local_buffer)
+
+            # Dump the buffer after modification but before sending
+            print("[==>] Dumping Modified Request:")
+            hexdump(local_buffer)
+            
             remote_socket.send(local_buffer)
             print("[==>] Sent to remote.")
 
