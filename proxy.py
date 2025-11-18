@@ -52,6 +52,7 @@ def request_handler(buffer):
     # modify the packet to: change its content; do fuzzing; debug auth issues 
     return buffer
 '''
+# TEST 2
 def request_handler(buffer):
     # Example: Replace the login 'USER badguy' with 'USER user'. 
     modified_buffer = buffer.replace(b'USER badguy', b'USER user')
