@@ -1,5 +1,7 @@
 <p align="center">
   <h1 align="center"> TCP proxy </h1>
+	<p align="center">For cybersecurity professionals and educational purposes only!</p>
+	<p align="center">Use only on hosts/networks you own or have permission to test!</p>
 </p>
 
 ## 🚀 Quick Start
