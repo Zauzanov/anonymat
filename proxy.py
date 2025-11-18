@@ -49,8 +49,13 @@ def receive_from(connection):
 
 # for modifying client-to-server traffic(requests)
 def request_handler(buffer):
-    # modify the packet to: change its content; do fuzzing; debug auth issues 
-    return buffer
+    old_host = b'192.168.204.139'
+    new_host = b'www.example.com'
+    modified_buffer = buffer.replace(old_host, new_host)
+    if modified_buffer != buffer: 
+        print("[!!!] HOST HEADER MODIFIED by proxy")
+    return modified_buffer
+
 '''
 # TEST 2
 def request_handler(buffer):
