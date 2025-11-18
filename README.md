@@ -57,12 +57,63 @@ ftp 192.168.204.139 			# Proxy's IP address in my case
 ``` bash
 sudo tail /var/log/vsftpd.log
 sudo cat /var/log/vsftpd.log
-```
+``` 
 
 ![Logs](https://raw.githubusercontent.com/Zauzanov/anonymat/refs/heads/main/IP_masking.png)
 
 If you see your Kali machine's IP address, you're good - it means the script effectively "masks" the original IP by replacing it. 
 
 
+## 6. How to test content changing in requests for debugging purposes(For cybersecurity professionals and educational purposes only! Use only on hosts/networks you own or have permission to test!): 
+### 6.1 We have to edit the script's function like this(Line 51):
+BEFORE:
+```python
+def request_handler(buffer):
+# modify the packet
+	return buffer
+```
 
+AFTER: 
+```python
+def request_handler(buffer):
+    # Example: Replace the login 'USER badguy' with 'USER user'. 
+    modified_buffer = buffer.replace(b'USER badguy', b'USER user')
+    return modified_buffer
+```
+### 6.2. I deliberately input a wrong login to demonstate the content changing process:
+![Logs](https://raw.githubusercontent.com/Zauzanov/anonymat/refs/heads/main/bad_login.png)
+
+### 6.3 The script replaces the login in a discreet way and accepts 'user' instead of 'badguy' login:
+```bash
+sudo python proxy.py 192.168.204.139 21 192.168.204.129 21 True
+[*] Listening 192.168.204.139:21
+> Received incoming connection from 192.168.204.129:34688
+0000 32 32 30 20 28 76 73 46 54 50 64 20 32 2E 33 2E  220 (vsFTPd 2.3.
+0010 34 29 0D 0A                                      4)..
+[<==] Sending 20 bytes to localhost.
+[==>]Received 13 bytes from localhost.
+0000 55 53 45 52 20 62 61 64 67 75 79 0D 0A           USER badguy..
+[==>] Sent to remote.
+[<==] Received 34 bytes from remote.
+0000 33 33 31 20 50 6C 65 61 73 65 20 73 70 65 63 69  331 Please speci
+0010 66 79 20 74 68 65 20 70 61 73 73 77 6F 72 64 2E  fy the password.
+0020 0D 0A                                            ..
+[<==] Sent to localhost.
+[==>]Received 11 bytes from localhost.
+0000 50 41 53 53 20 75 73 65 72 0D 0A                 PASS user..
+[==>] Sent to remote.
+[<==] Received 23 bytes from remote.
+0000 32 33 30 20 4C 6F 67 69 6E 20 73 75 63 63 65 73  230 Login succes
+0010 73 66 75 6C 2E 0D 0A                             sful...
+```
+### 6.4 Then we input password(creds are user:user for Metasploitable2 FTP server).
+That's it. 
+
+So you can use this modification as a starting point for your tests, labs and cybersecurity research:
+```python
+def request_handler(buffer):
+    # Example: Replace 'USER validuser' with 'USER intruder'
+    modified_buffer = buffer.replace(b'USER validuser', b'USER intruder')
+    return modified_buffer
+```
 
