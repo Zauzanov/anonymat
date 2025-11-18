@@ -51,7 +51,12 @@ def receive_from(connection):
 def request_handler(buffer):
     # modify the packet to: change its content; do fuzzing; debug auth issues 
     return buffer
-
+'''
+def request_handler(buffer):
+    # Example: Replace the login 'USER badguy' with 'USER user'. 
+    modified_buffer = buffer.replace(b'USER badguy', b'USER user')
+    return modified_buffer
+'''
 # For modifying server-to-client traffic(responses)
 def response_handler(buffer):
     # modify the packet to alter a server response etc
