@@ -82,7 +82,7 @@ def request_handler(buffer):
     modified_buffer = buffer.replace(b'USER badguy', b'USER user')
     return modified_buffer
 ```
-### 6.2. I deliberately input a wrong login to demonstate the content changing process:
+### 6.2. I deliberately input a wrong login(user 'badguy' doesn't exist at all) to demonstrate the content changing process:
 ![Logs](https://raw.githubusercontent.com/Zauzanov/anonymat/refs/heads/main/bad_login.png)
 
 ### 6.3 The script replaces the login in a discreet way and accepts 'user' instead of 'badguy' login:
