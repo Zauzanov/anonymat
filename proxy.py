@@ -62,6 +62,16 @@ def request_handler(buffer):
 def response_handler(buffer):
     # modify the packet to alter a server response etc
     return buffer
+'''
+# TEST 3 - Replacing the initial server banner to see the altered message
+def response_handler(buffer):
+    old_response_start = b'220 '
+    new_response = b'220 SERVER IS COMPROMISED!' 
+    modified_buffer = buffer.replace(old_response_start, new_response)
+    if modified_buffer != buffer:
+        print(f"[!!!] RESPONSE MODIFIED: Altered server banner")
+    return modified_buffer
+'''
 
 # Traffic handling function
 def proxy_handler(client_socket, remote_host, remote_port, receive_first):
