@@ -83,7 +83,7 @@ def request_handler(buffer):
     return modified_buffer
 ```
 ### 6.2. I deliberately input a wrong login(user 'badguy' doesn't exist at all) to demonstrate the content changing process:
-![Logs](https://raw.githubusercontent.com/Zauzanov/anonymat/refs/heads/main/bad_login.png)
+![Login](https://raw.githubusercontent.com/Zauzanov/anonymat/refs/heads/main/bad_login.png)
 
 ### 6.3 The script replaces the login in a discreet way and accepts 'user' instead of 'badguy' login:
 ```bash
@@ -118,4 +118,35 @@ def request_handler(buffer):
     modified_buffer = buffer.replace(b'USER validuser', b'USER intruder')
     return modified_buffer
 ```
+## 7. To test if you can replace the server's response using response_handler(buffer), you need this kind of construction:
+```python
+def response_handler(buffer):
+    old_response_start = b'220 '
+    new_response = b'220 SERVER IS COMPROMISED!' 
+    modified_buffer = buffer.replace(old_response_start, new_response)
+    if modified_buffer != buffer:
+        print(f"[!!!] RESPONSE MODIFIED: Altered server banner")
+    return modified_buffer
+```
+### 7.1 Then run the proxy: 
+```bash
+sudo python proxy.py 192.168.204.139 21 192.168.204.129 21 True
+```
 
+### 7.2 as a FTP-client from Metaspoitable2 Terminal:
+```bash
+ftp 192.168.204.139
+```
+### 7.3 Server's response on Kali:
+```bash
+[*] Listening 192.168.204.139:21
+> Received incoming connection from 192.168.204.129:56474
+0000 32 32 30 20 28 76 73 46 54 50 64 20 32 2E 33 2E  220 (vsFTPd 2.3.
+0010 34 29 0D 0A                                      4)..
+[!!!] RESPONSE MODIFIED: Altered server banner
+[<==] Sending 42 bytes to localhost.
+[*] No more data. Closing connections.
+```
+
+### 7.4 On FTP-client's side:
+![Banner](https://raw.githubusercontent.com/Zauzanov/anonymat/refs/heads/main/altered_banner.png)
